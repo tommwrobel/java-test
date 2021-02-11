@@ -8,13 +8,6 @@ public class Square {
     private Dimension dimension;
     private int x, y;
 
-    public Square(int x, int y, Dimension dimension, Color color) {
-        this.x = x;
-        this.y = x;
-        this.dimension = dimension;
-        this.color = color;
-    };
-
     public Square(Dimension dim) {
         this.color = Color.WHITE;
         this.dimension = new Dimension(50, 50);
