@@ -8,7 +8,7 @@ public class RandomSquare {
     private int a, b;
     private int x, y;
     private Color color;
-    private boolean pulseOut;
+    private int pulseStep;
 
     public RandomSquare(Dimension dim) {
         Random random = new Random();
@@ -22,7 +22,7 @@ public class RandomSquare {
         y = random.nextInt(dim.height - a);
 
         color = Color.WHITE;
-        pulseOut = false;
+        pulseStep = 1;
     }
 
     public void draw(Graphics graphics) {
@@ -31,19 +31,11 @@ public class RandomSquare {
     }
 
     public void pulse() {
-        if (pulseOut == false) {
-            y += 1;
-            b -= 2;
-        } else {
-            y -= 1;
-            b += 2;
-        }
+        y += pulseStep;
+        b -= pulseStep * 2;
 
-        if (b < 1) {
-            pulseOut = true;
-        }
-        if (b >= a) {
-            pulseOut = false;
+        if (b < 1 || b >= a) {
+            pulseStep = -pulseStep;
         }
     }
 }
