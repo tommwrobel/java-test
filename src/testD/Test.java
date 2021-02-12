@@ -2,12 +2,13 @@ package testD;
 
 import java.applet.Applet;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 import java.util.List;
 
-public class Test extends Applet implements MouseListener {
+public class Test extends Applet {
 
     List<RandomSquare> randomSquares = new ArrayList<>();
 
@@ -20,7 +21,28 @@ public class Test extends Applet implements MouseListener {
             randomSquares.add(new RandomSquare(dim));
         }
 
-        addMouseListener(this);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == 3) {
+                    for (RandomSquare rs : randomSquares) {
+                        rs.setColor(Color.WHITE);
+                    }
+                    repaint();
+                } else if (e.getButton() == 1) {
+
+                    int x = e.getX();
+                    int y = e.getY();
+
+                    RandomSquare minDistRs = randomSquares
+                            .stream()
+                            .min(Comparator.comparing(rs -> rs.getDistanceFromCenter(x, y)))
+                            .orElseThrow(NoSuchElementException::new);
+
+                    minDistRs.changeColor();
+                }
+            }
+        });
 
         TimerTask pulseTask = new TimerTask() {
             @Override
@@ -41,46 +63,5 @@ public class Test extends Applet implements MouseListener {
         for (RandomSquare rs : randomSquares) {
             rs.draw(graphics);
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == 3) {
-            for (RandomSquare rs : randomSquares) {
-                rs.setColor(Color.WHITE);
-            }
-            repaint();
-        } else if (e.getButton() == 1) {
-
-            int x = e.getX();
-            int y = e.getY();
-
-            RandomSquare minDistRs = randomSquares
-                    .stream()
-                    .min(Comparator.comparing(rs -> rs.getDistanceFromCenter(x, y)))
-                    .orElseThrow(NoSuchElementException::new);
-
-            minDistRs.changeColor();
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }
