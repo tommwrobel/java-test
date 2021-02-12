@@ -1,4 +1,4 @@
-package testC;
+package testCcolor;
 
 import java.awt.*;
 import java.util.Random;
@@ -35,5 +35,9 @@ public class RandomSquare {
         b -= pulseStep * 2;
 
         pulseStep = (b < 1 || b >= a) ? -pulseStep : pulseStep;
+    }
+
+    public void changeColor() {
+        color = (color == Color.WHITE) ? Color.RED : Color.WHITE;
     }
 }

@@ -1,4 +1,4 @@
-package testC;
+package testD;
 
 import java.awt.*;
 import java.util.Random;
@@ -35,5 +35,23 @@ public class RandomSquare {
         b -= pulseStep * 2;
 
         pulseStep = (b < 1 || b >= a) ? -pulseStep : pulseStep;
+    }
+
+    public double getDistanceFromCenter(int cx, int cy) {
+        int objX = x + a / 2;
+        int objY = y + b / 2;
+
+        double distX = Math.abs(objX - cx);
+        double distY = Math.abs(objY - cy);
+
+        return Math.sqrt((Math.pow(distX, 2d) + Math.pow(distY, 2d)));
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void changeColor() {
+        color = (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
 }
